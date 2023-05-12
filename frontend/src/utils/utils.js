@@ -11,9 +11,8 @@ export const configValidation = ({
 
 // конфиг для api
 export const configApi = {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-58',
+  baseUrl: 'https://api.lyubafrema.nomoredomains.monster',
   headers: {
-    authorization: '154f5bdf-df05-4616-a7df-dbae8412531e',
     'Content-Type': 'application/json'
   }
 };

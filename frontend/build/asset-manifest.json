@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-mesto-auth/static/css/main.b9a2a339.css",
-    "main.js": "/react-mesto-auth/static/js/main.f994ca4f.js",
+    "main.css": "/react-mesto-auth/static/css/main.4edecb56.css",
+    "main.js": "/react-mesto-auth/static/js/main.ef264c1a.js",
     "static/media/Inter-Medium.woff?v=3.19": "/react-mesto-auth/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Black.woff?v=3.19": "/react-mesto-auth/static/media/Inter-Black.c6938660eec019fefd68.woff",
     "static/media/Inter-Regular.woff?v=3.19": "/react-mesto-auth/static/media/Inter-Regular.8c206db99195777c6769.woff",
@@ -15,15 +15,17 @@
     "static/media/delete-button-logo.svg": "/react-mesto-auth/static/media/delete-button-logo.823b0cf1b0b7e9cb7cad.svg",
     "static/media/success-log-in.svg": "/react-mesto-auth/static/media/success-log-in.1b6082f862eac35e2514.svg",
     "static/media/element-like_active.svg": "/react-mesto-auth/static/media/element-like_active.e787eeb70bb65b7b453a.svg",
+    "static/media/burger-close.svg": "/react-mesto-auth/static/media/burger-close.a46d5c1c53c02d60fc8020a980d10651.svg",
     "static/media/edit-button-logo.svg": "/react-mesto-auth/static/media/edit-button-logo.8667ac4a523e8fc42e59.svg",
     "static/media/change-avatar-icon.svg": "/react-mesto-auth/static/media/change-avatar-icon.a086f758840ae814ecde.svg",
     "static/media/close-Icon.svg": "/react-mesto-auth/static/media/close-Icon.2ceb783afbab75916ddc.svg",
+    "static/media/burger-open.svg": "/react-mesto-auth/static/media/burger-open.87e81ed62ce15cecca0b4480088e13cd.svg",
     "static/media/add-button-logo.svg": "/react-mesto-auth/static/media/add-button-logo.d86bb2edc2f6eadb96b7.svg",
-    "main.b9a2a339.css.map": "/react-mesto-auth/static/css/main.b9a2a339.css.map",
-    "main.f994ca4f.js.map": "/react-mesto-auth/static/js/main.f994ca4f.js.map"
+    "main.4edecb56.css.map": "/react-mesto-auth/static/css/main.4edecb56.css.map",
+    "main.ef264c1a.js.map": "/react-mesto-auth/static/js/main.ef264c1a.js.map"
   },
   "entrypoints": [
-    "static/css/main.b9a2a339.css",
-    "static/js/main.f994ca4f.js"
+    "static/css/main.4edecb56.css",
+    "static/js/main.ef264c1a.js"
   ]
 }

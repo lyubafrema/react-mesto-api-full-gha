@@ -1,6 +1,6 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'https://api.lyubafrema.nomoredomains.monster';
 
- const handleResponse = (response) => {
+const handleResponse = (response) => {
   if (response.ok) {
     return response.json();
   }
@@ -14,9 +14,9 @@ export const register = (email, password) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({email, password})
+    body: JSON.stringify({ email, password })
   })
-  .then(handleResponse);
+    .then(handleResponse);
 }
 
 export const authorize = (email, password) => {
@@ -25,9 +25,9 @@ export const authorize = (email, password) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({email, password})
+    body: JSON.stringify({ email, password })
   })
-  .then(handleResponse);
+    .then(handleResponse);
 }
 
 export const getContent = (token) => {
@@ -38,7 +38,7 @@ export const getContent = (token) => {
       'Authorization': `Bearer ${token}`,
     }
   })
-  .then(res => res.json())
-  .then(data => data)
-  .catch((err) => console.log(err))
+    .then(res => res.json())
+    .then(data => data)
+    .catch((err) => console.log(err))
 }
