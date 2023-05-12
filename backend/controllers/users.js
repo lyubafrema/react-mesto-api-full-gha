@@ -64,7 +64,11 @@ const login = (req, res, next) => {
           if (!matched) {
             return next(new UnauthorizedError(errorMessageUnauthorized));
           }
-          const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'secret-key', { expiresIn: '7d' });
+          const token = jwt.sign(
+            { _id: user._id },
+            NODE_ENV === 'production' ? JWT_SECRET : 'secret-key',
+            { expiresIn: '7d' },
+          );
           return res.send({ token });
         });
     })
