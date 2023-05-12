@@ -1,0 +1,16 @@
+.register__log-in {
+  width: 358px;
+  margin: 15px auto 0;
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+  .register__log-in {
+    width: 260px;
+    margin-top: 20px;
+  }
+}

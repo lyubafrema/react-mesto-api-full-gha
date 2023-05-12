@@ -1,0 +1,23 @@
+.profile__overlay {
+  display: block;
+  position: relative;
+  width: 120px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile__overlay::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 120px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  transition: background 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.profile__overlay:hover::before {
+  background: rgba(0, 0, 0, 0.8) url(../../../images/change-avatar-icon.svg) no-repeat center / 26px;
+}

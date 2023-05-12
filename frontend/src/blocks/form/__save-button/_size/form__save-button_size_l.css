@@ -1,0 +1,10 @@
+.form__save-button_size_l {
+  top: 186px;
+  left: 0;
+}
+
+@media screen and (max-width: 416px) {
+  .form__save-button_size_l {
+    top: 204px;
+  }
+}

@@ -1,0 +1,33 @@
+.register__form_input {
+  color: #FFFFFF;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #000000;
+  border: none;
+  border-bottom: 2px solid #CCCCCC;
+  height: 27px;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}
+
+.register__form_input:not(:first-of-type) {
+  margin-top: 30px;
+}
+
+.register__form_input::placeholder {
+  color: #CCCCCC;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #000000;
+}
+
+.register__form_input:-webkit-autofill
+ {
+  -webkit-text-fill-color: #CCCCCC;
+  transition: background-color 5000s ease-in-out 0s;
+ }

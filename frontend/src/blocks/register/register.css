@@ -1,0 +1,13 @@
+.register {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+}
+
+@media screen and (max-width: 400px) {
+  .register {
+    margin-top: 40px;
+    align-items: center;
+  }
+}
