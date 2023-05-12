@@ -1,6 +1,8 @@
 const allowedCors = [
   'http://lyubafrema.nomoredomains.monster/',
   'http://api.lyubafrema.nomoredomains.monster/',
+  'https://lyubafrema.nomoredomains.monster/',
+  'https://api.lyubafrema.nomoredomains.monster/',
   'localhost:3000',
 ];
 
