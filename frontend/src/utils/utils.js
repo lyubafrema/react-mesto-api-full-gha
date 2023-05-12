@@ -11,7 +11,7 @@ export const configValidation = ({
 
 // конфиг для api
 export const configApi = {
-  baseUrl: 'https://api.lyubafrema.nomoredomains.monster',
+  baseUrl: 'http://api.lyubafrema.nomoredomains.monster',
   headers: {
     'Content-Type': 'application/json'
   }
