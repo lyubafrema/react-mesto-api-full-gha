@@ -13,7 +13,6 @@ export const configValidation = ({
 export const configApi = {
   baseUrl: 'http://api.lyubafrema.nomoredomains.monster',
   headers: {
-    'Content-Type': 'application/json',
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    'Content-Type': 'application/json'
   }
 };

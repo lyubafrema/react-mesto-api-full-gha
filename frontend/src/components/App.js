@@ -49,7 +49,8 @@ function App() {
         })
         .catch((err) => console.log(err))
     }
-  }, [navigate])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   //  загрузка карточек и инфы о пользователе
   useEffect(() => {
