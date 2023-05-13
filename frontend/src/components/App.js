@@ -15,7 +15,7 @@ import Login from './Login';
 import ProtectedRouteElement from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 import { api } from '../utils/api';
-import * as mestoAuth from '../auth';
+import * as auth from '../auth';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -33,34 +33,23 @@ function App() {
   const [registerErr, setRegisterErr] = useState(false);
   const navigate = useNavigate();
 
-  // получаем данные пользователя (email)
-  const auth = (token) => {
-    mestoAuth.getContent(token)
-      .then((res) => {
-        if (res) {
-          setIsLogged(true);
-          setUserData({
-            email: res.data.email
-          })
-        }
-      })
-      .catch((err) => console.log(err))
-  }
-
   // проверяем есть ли токен в локал сторейдж, если да - авторизуем
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      auth(token)
+      auth.getContent(token)
+        .then((res) => {
+          if (res) {
+            setIsLogged(true);
+            setUserData({
+              email: res.email
+            });
+            navigate('/', { replace: true })
+          }
+        })
+        .catch((err) => console.log(err))
     }
-  }, [isLogged])
-
-  // проверяем авторизован ли пользователь, если да - перенаправляем на главную страницу
-  useEffect(() => {
-    if (isLogged) {
-      navigate('/', { replace: true })
-    }
-  }, [isLogged, navigate])
+  }, [navigate])
 
   //  загрузка карточек и инфы о пользователе
   useEffect(() => {
@@ -77,7 +66,7 @@ function App() {
 
   // функция авторизации
   const onLogin = ({ email, password }) => {
-    return mestoAuth.authorize(email, password)
+    return auth.authorize(email, password)
       .then((res) => {
         if (!res) {
           console.log('Неправильный логин или пароль.');
@@ -93,7 +82,7 @@ function App() {
 
   // функция регистрации
   const onRegister = ({ email, password }) => {
-    return mestoAuth.register(email, password)
+    return auth.register(email, password)
       .then((res) => {
         if (!res) {
           console.log('Что-то пошло не так.');
@@ -116,8 +105,11 @@ function App() {
 
   // функция выхода
   const onSignOut = () => {
-    localStorage.removeItem('token');
     setIsLogged(false);
+    setUserData({
+      email: ''
+    });
+    localStorage.removeItem('token');
     navigate('/signin', { replace: true })
   }
 
