@@ -35,10 +35,12 @@ export const getContent = (token) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     }
   })
-    .then(res => res.json())
-    .then(data => data)
+    .then((res) => {
+      console.log(res)
+      res.json()
+    })
     .catch((err) => console.log(err))
 }
