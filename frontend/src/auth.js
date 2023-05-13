@@ -1,4 +1,5 @@
-export const BASE_URL = 'http://api.lyubafrema.nomoredomains.monster';
+// export const BASE_URL = 'http://api.lyubafrema.nomoredomains.monster';
+export const BASE_URL = 'http://localhost:3000';
 
 const handleResponse = (response) => {
   if (response.ok) {

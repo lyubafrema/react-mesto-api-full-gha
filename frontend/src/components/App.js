@@ -2,6 +2,7 @@ import '../index.css';
 import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import Api from '../utils/api'
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -14,7 +15,6 @@ import Register from './Register';
 import Login from './Login';
 import ProtectedRouteElement from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
-import { api } from '../utils/api';
 import * as auth from '../auth';
 
 function App() {
@@ -33,6 +33,16 @@ function App() {
   const [registerErr, setRegisterErr] = useState(false);
   const navigate = useNavigate();
 
+  // конфиг для api
+  const api = new Api({
+    // url: 'http://api.lyubafrema.nomoredomains.monster',
+    url: 'http://localhost:3000',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('token')}`,
+    }
+  });
+
   // проверяем есть ли токен в локал сторейдж, если да - авторизуем
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -44,7 +54,7 @@ function App() {
             setUserData({
               email: res.email
             });
-            navigate('/', { replace: true })
+            navigate('/')
           }
         })
         .catch((err) => console.log(err))
@@ -63,6 +73,7 @@ function App() {
         .catch((err) => {
           console.log(err);
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged])
 
   // функция авторизации
@@ -75,9 +86,12 @@ function App() {
         if (res.token) {
           setIsLogged(true);
           localStorage.setItem('token', res.token);
+          setUserData({
+            email: res.email
+          });
         }
       })
-      .then(() => navigate('/', { replace: true }))
+      .then(() => navigate('/'))
       .catch((err) => console.log(err));
   }
 
@@ -89,11 +103,12 @@ function App() {
           console.log('Что-то пошло не так.');
         }
         if (res) {
+          console.log(res);
           return res;
         }
       })
       .then(() => {
-        navigate('/', { replace: true });
+        navigate('/');
         setRegisterErr(false);
         setIsInfoTooltipOpen((prev) => !prev);
       })
@@ -111,7 +126,7 @@ function App() {
       email: ''
     });
     localStorage.removeItem('token');
-    navigate('/signin', { replace: true })
+    navigate('/signin')
   }
 
   const handleEditProfile = () => {

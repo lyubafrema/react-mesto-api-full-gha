@@ -1,7 +1,6 @@
-import { configApi } from './utils';
-class Api {
-  constructor({ baseUrl, headers }) {
-    this._baseUrl = baseUrl;
+export default class Api {
+  constructor({ url, headers }) {
+    this._url = url;
     this._headers = headers;
   }
 
@@ -21,21 +20,21 @@ class Api {
 
   // загрузка карточек с сервера
   getInitialCards() {
-    return this._request(`${this._baseUrl}/cards`, {
+    return this._request(`${this._url}/cards`, {
       headers: this._headers
     });
   }
 
   // загрузка информации о пользователе с сервера
   getUserInfo() {
-    return this._request(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       headers: this._headers
     });
   }
 
   // редактирование профиля
   editProfileInfo({ name, about }) {
-    return this._request(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -47,7 +46,7 @@ class Api {
 
   // добавление новой карточки
   addNewCard({ name, link }) {
-    return this._request(`${this._baseUrl}/cards`, {
+    return this._request(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
@@ -59,7 +58,7 @@ class Api {
 
   // удаление своей карточки
   deleteCard(id) {
-    return this._request(`${this._baseUrl}/cards/${id} `, {
+    return this._request(`${this._url}/cards/${id} `, {
       method: "DELETE",
       headers: this._headers
     });
@@ -68,12 +67,12 @@ class Api {
   // меняем информацию о наличие лайка на карточке
   changeLikeCardStatus(id, isLiked) {
     if (isLiked) {
-      return this._request(`${this._baseUrl}/cards/${id}/likes`, {
+      return this._request(`${this._url}/cards/${id}/likes`, {
         method: "PUT",
         headers: this._headers
       })
     } else {
-      return this._request(`${this._baseUrl}/cards/${id}/likes`, {
+      return this._request(`${this._url}/cards/${id}/likes`, {
         method: "DELETE",
         headers: this._headers
       });
@@ -82,7 +81,7 @@ class Api {
 
   // сменить аватар
   changeAvatar({ avatar }) {
-    return this._request(`${this._baseUrl}/users/me/avatar`, {
+    return this._request(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -91,6 +90,3 @@ class Api {
     });
   }
 }
-
-const api = new Api(configApi);
-export { api };

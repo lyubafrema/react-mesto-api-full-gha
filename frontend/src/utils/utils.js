@@ -8,12 +8,3 @@ export const configValidation = ({
   spanErrorClass: '.popup__input-error',
   errorClass: 'popup__input-error_active',
 });
-
-// конфиг для api
-export const configApi = {
-  baseUrl: 'http://api.lyubafrema.nomoredomains.monster',
-  headers: {
-    'Content-Type': 'application/json',
-    authorization: `Bearer ${localStorage.getItem('token')}`,
-  }
-};
