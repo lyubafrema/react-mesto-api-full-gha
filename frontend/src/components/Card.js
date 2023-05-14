@@ -4,12 +4,12 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const isOwn = card.owner._id === currentUser._id;
+  const isOwn = card.owner === currentUser._id;
 
-  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const isLiked = card.likes.some(i => i === currentUser._id);
 
   const cardLikeButtonClassName = (
-  `element__like ${isLiked && "element__like_active"}`
+    `element__like ${isLiked && "element__like_active"}`
   );
 
   function handleClick() {
@@ -26,7 +26,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
   return (
     <article className="element" >
-      {isOwn && <button className="element__delete" type="button" aria-label="Удалить" onClick={handleDeleteClick}/>}
+      {isOwn && <button className="element__delete" type="button" aria-label="Удалить" onClick={handleDeleteClick} />}
       <img className="element__image" src={card.link} alt={card.name} onClick={handleClick} />
       <div className="element__container">
         <h2 className="element__title">{card.name}</h2>

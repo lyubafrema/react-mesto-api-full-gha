@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import UserDataForm from "./UserDataForm";
 
-function Login ({ onLogin }) {
-  const navigate = useNavigate();
+function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,16 +18,10 @@ function Login ({ onLogin }) {
     setPassword(e.target.value);
   }
 
-  useEffect(() => {
-    if(localStorage.getItem('token')) {
-      navigate('/', {replace: true})
-    }
-  }, [navigate])
-
   const handleSubmit = (e) => {
     e.preventDefault();
     resetForm()
-    onLogin({email, password});
+    onLogin({ email, password });
   }
 
   return (

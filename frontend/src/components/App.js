@@ -29,19 +29,26 @@ function App() {
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [IsInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [userData, setUserData] = useState({});
+  const [userEmail, setUserEmail] = useState('');
   const [registerErr, setRegisterErr] = useState(false);
   const navigate = useNavigate();
 
   // конфиг для api
   const api = new Api({
-    // url: 'http://api.lyubafrema.nomoredomains.monster',
-    url: 'http://localhost:3000',
+    url: 'http://api.lyubafrema.nomoredomains.monster',
+    // url: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json',
       authorization: `Bearer ${localStorage.getItem('token')}`,
     }
   });
+
+  // проверяем авторизован ли пользователь, если да - перенаправляем на главную страницу
+  useEffect(() => {
+    if (isLogged) {
+      navigate('/', { replace: true });
+    }
+  }, [isLogged, navigate])
 
   // проверяем есть ли токен в локал сторейдж, если да - авторизуем
   useEffect(() => {
@@ -51,15 +58,11 @@ function App() {
         .then((res) => {
           if (res) {
             setIsLogged(true);
-            setUserData({
-              email: res.email
-            });
-            navigate('/')
+            setUserEmail(res.email);
           }
         })
         .catch((err) => console.log(err))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   //  загрузка карточек и инфы о пользователе
@@ -67,8 +70,9 @@ function App() {
     isLogged &&
       Promise.all([api.getInitialCards(), api.getUserInfo()])
         .then(([cards, data]) => {
-          setCards(cards);
+          setCards(cards.reverse());
           setCurrentUser(data);
+          setUserEmail(data.email);
         })
         .catch((err) => {
           console.log(err);
@@ -86,12 +90,9 @@ function App() {
         if (res.token) {
           setIsLogged(true);
           localStorage.setItem('token', res.token);
-          setUserData({
-            email: res.email
-          });
         }
       })
-      .then(() => navigate('/'))
+      .then(() => navigate('/', { replace: true }))
       .catch((err) => console.log(err));
   }
 
@@ -103,12 +104,11 @@ function App() {
           console.log('Что-то пошло не так.');
         }
         if (res) {
-          console.log(res);
           return res;
         }
       })
       .then(() => {
-        navigate('/');
+        navigate('/', { replace: true });
         setRegisterErr(false);
         setIsInfoTooltipOpen((prev) => !prev);
       })
@@ -122,11 +122,9 @@ function App() {
   // функция выхода
   const onSignOut = () => {
     setIsLogged(false);
-    setUserData({
-      email: ''
-    });
+    setUserEmail('');
     localStorage.removeItem('token');
-    navigate('/signin')
+    navigate('/signin', { replace: true })
   }
 
   const handleEditProfile = () => {
@@ -152,7 +150,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -260,7 +258,7 @@ function App() {
       <div className="root">
         <div className="page">
           <Header
-            userData={userData}
+            userEmail={userEmail}
             isLogged={isLogged}
             onSignOut={onSignOut} />
           <Routes>

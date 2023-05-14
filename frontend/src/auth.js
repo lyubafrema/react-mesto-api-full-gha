@@ -1,5 +1,5 @@
-// export const BASE_URL = 'http://api.lyubafrema.nomoredomains.monster';
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'http://api.lyubafrema.nomoredomains.monster';
+// export const BASE_URL = 'http://localhost:3001';
 
 const handleResponse = (response) => {
   if (response.ok) {
@@ -39,9 +39,7 @@ export const getContent = (token) => {
       authorization: `Bearer ${token}`,
     }
   })
-    .then((res) => {
-      console.log(res)
-      res.json()
-    })
+    .then(res => res.json())
+    // .then(data => data)
     .catch((err) => console.log(err))
 }

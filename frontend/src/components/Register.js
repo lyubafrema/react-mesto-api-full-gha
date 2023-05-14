@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import UserDataForm from "./UserDataForm";
 
-function Register ({ onRegister }) {
-  const navigate = useNavigate();
+function Register({ onRegister }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,16 +19,10 @@ function Register ({ onRegister }) {
     setPassword(e.target.value);
   }
 
-  useEffect(() => {
-    if(localStorage.getItem('token')) {
-      navigate('/', {replace: true})
-    }
-  }, [navigate])
-
   const handleSubmit = (e) => {
     e.preventDefault();
     resetForm();
-    onRegister({email, password});
+    onRegister({ email, password });
   }
 
   return (
