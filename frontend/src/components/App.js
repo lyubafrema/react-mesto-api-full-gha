@@ -35,7 +35,7 @@ function App() {
 
   // конфиг для api
   const api = new Api({
-    url: 'http://api.lyubafrema.nomoredomains.monster',
+    url: 'https://api.lyubafrema.nomoredomains.monster',
     // url: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json',
