@@ -3,11 +3,11 @@ const ForbiddenError = require('../errors/forbidden-err');
 const NotFoundError = require('../errors/not-found-err');
 const Card = require('../models/card');
 const {
-  errorMessageNotFoundId,
-  errorForbidden,
-  errorMessageIncorrect,
+  HTTP_STATUS_ID_NOT_FOUND,
+  HTTP_STATUS_FORBIDDEN,
+  HTTP_STATUS_BAD_REQUEST,
+  HTTP_STATUS_NOT_FOUND,
   okCode,
-  errorMessageNotFound,
 } = require('../utils/constants');
 
 // создаем карточку
@@ -21,7 +21,7 @@ const createCard = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(errorMessageIncorrect));
+        next(new BadRequestError(HTTP_STATUS_BAD_REQUEST));
       } else {
         next(err);
       }
@@ -31,6 +31,7 @@ const createCard = (req, res, next) => {
 // получаем все карточки
 const getCards = (req, res, next) => {
   Card.find({})
+    .populate(['owner', 'likes'])
     .then((cards) => res.send(cards))
     .catch(next);
 };
@@ -39,10 +40,10 @@ const getCards = (req, res, next) => {
 const deleteCard = (req, res, next) => Card.findById(req.params.cardId)
   .then((card) => {
     if (!card) {
-      throw new NotFoundError(errorMessageNotFound);
+      throw new NotFoundError(HTTP_STATUS_NOT_FOUND);
     }
     if (card.owner.toString() !== (req.user._id)) {
-      throw new ForbiddenError(errorForbidden);
+      throw new ForbiddenError(HTTP_STATUS_FORBIDDEN);
     }
     card.deleteOne()
       .then(() => res.status(okCode).send({ message: 'Карточка удалена.' }))
@@ -50,7 +51,7 @@ const deleteCard = (req, res, next) => Card.findById(req.params.cardId)
   })
   .catch((err) => {
     if (err.name === 'CastError') {
-      next(new BadRequestError(errorMessageIncorrect));
+      next(new BadRequestError(HTTP_STATUS_BAD_REQUEST));
     } else {
       next(err);
     }
@@ -63,9 +64,10 @@ const likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } }, // добавим _id в массив, если его там нет
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
-        throw new NotFoundError(errorMessageNotFoundId);
+        throw new NotFoundError(HTTP_STATUS_ID_NOT_FOUND);
       }
       return res.send(card);
     })
@@ -79,9 +81,10 @@ const dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } }, // уберем _id из массива
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
-        throw new NotFoundError(errorMessageNotFoundId);
+        throw new NotFoundError(HTTP_STATUS_ID_NOT_FOUND);
       }
       return res.send(card);
     })

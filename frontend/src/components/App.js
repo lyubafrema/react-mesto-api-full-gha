@@ -35,8 +35,8 @@ function App() {
 
   // конфиг для api
   const api = new Api({
-    url: 'https://api.lyubafrema.nomoredomains.monster',
     // url: 'http://localhost:3001',
+    url: 'https://api.lyubafrema.nomoredomains.monster',
     headers: {
       'Content-Type': 'application/json',
       authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -150,7 +150,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));

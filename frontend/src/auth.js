@@ -1,12 +1,12 @@
 export const BASE_URL = 'https://api.lyubafrema.nomoredomains.monster';
 // export const BASE_URL = 'http://localhost:3001';
 
-const handleResponse = (response) => {
-  if (response.ok) {
-    return response.json();
+const handleResponse = (res) => {
+  if (res.ok) {
+    return res.json();
   }
-  console.log(`Произошла ошибка: ${response.statusText}`);
-  return Promise.reject(`Статус ошибки: ${response.status}`);
+  console.log(`Произошла ошибка: ${res.statusText}`);
+  return Promise.reject(`Статус ошибки: ${res.status}`);
 }
 
 export const register = (email, password) => {
@@ -40,6 +40,5 @@ export const getContent = (token) => {
     }
   })
     .then(res => res.json())
-    // .then(data => data)
     .catch((err) => console.log(err))
 }

@@ -1,18 +1,20 @@
 const express = require('express');
 const helmet = require('helmet');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
 const cors = require('./middlewares/cors');
-const defaultErr = require('./errors/default-err');
+const handleDefaultErr = require('./errors/default-err');
+const NotFoundError = require('./errors/not-found-err');
+const { HTTP_STATUS_NOT_FOUND } = require('./utils/constants');
+const { PORT, mongoDbLink } = require('./config');
 
 const app = express();
 
 app.use(helmet());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors);
 app.use(requestLogger);
 
@@ -25,11 +27,14 @@ app.get('/crash-test', () => {
 
 app.use(router);
 
+app.use((req, res, next) => {
+  next(new NotFoundError(HTTP_STATUS_NOT_FOUND));
+});
+
 app.use(errorLogger);
 app.use(errors());
-app.use(defaultErr);
+app.use(handleDefaultErr);
 
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
+mongoose.connect(mongoDbLink);
 
-app.listen(3000);
-// app.listen(3001);
+app.listen(PORT);
